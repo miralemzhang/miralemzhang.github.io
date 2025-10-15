@@ -2,9 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://miralemzhang.github.io/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/</loc>
+    
+    <lastmod>2025-10-15</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://miralemzhang.github.io/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/</loc>
     
-    <lastmod>2025-09-05</lastmod>
+    <lastmod>2025-10-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,7 +31,7 @@
 
   <url>
     <loc>https://miralemzhang.github.io/</loc>
-    <lastmod>2025-09-25</lastmod>
+    <lastmod>2025-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -30,14 +39,14 @@
   
   <url>
     <loc>https://miralemzhang.github.io/tags/LeetCode/</loc>
-    <lastmod>2025-09-25</lastmod>
+    <lastmod>2025-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://miralemzhang.github.io/tags/Book-Music-Review/</loc>
-    <lastmod>2025-09-25</lastmod>
+    <lastmod>2025-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -46,14 +55,14 @@
   
   <url>
     <loc>https://miralemzhang.github.io/categories/Coding/</loc>
-    <lastmod>2025-09-25</lastmod>
+    <lastmod>2025-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://miralemzhang.github.io/categories/Thoughts/</loc>
-    <lastmod>2025-09-25</lastmod>
+    <lastmod>2025-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

@@ -1,3 +1,4 @@
+https://miralemzhang.github.io/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/
 https://miralemzhang.github.io/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/
 https://miralemzhang.github.io/2025/09/05/My-First-Blog-Post/
 https://miralemzhang.github.io/

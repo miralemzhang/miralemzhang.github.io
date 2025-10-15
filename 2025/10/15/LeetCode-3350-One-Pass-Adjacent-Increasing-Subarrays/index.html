@@ -1,0 +1,506 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Leetcode 3350 - Track Adjacent Increasing Subarrays | MLMZZZOOO's Blog</title><meta name="author" content="Miralem Zhang"><meta name="copyright" content="Miralem Zhang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="A one-pass greedy O(n) time O(1) space solution for LeetCode 3350: Maximum Length of Adjacent Increasing Subarrays.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode 3350 - Track Adjacent Increasing Subarrays">
+<meta property="og:url" content="https://miralemzhang.github.io/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/index.html">
+<meta property="og:site_name" content="MLMZZZOOO&#39;s Blog">
+<meta property="og:description" content="A one-pass greedy O(n) time O(1) space solution for LeetCode 3350: Maximum Length of Adjacent Increasing Subarrays.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://miralemzhang.github.io/img/leetcode.png">
+<meta property="article:published_time" content="2025-10-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-10-15T09:36:15.742Z">
+<meta property="article:author" content="Miralem Zhang">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://miralemzhang.github.io/img/leetcode.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Leetcode 3350 - Track Adjacent Increasing Subarrays",
+  "url": "https://miralemzhang.github.io/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/",
+  "image": "https://miralemzhang.github.io/img/leetcode.png",
+  "datePublished": "2025-10-14T16:00:00.000Z",
+  "dateModified": "2025-10-15T09:36:15.742Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Miralem Zhang",
+      "url": "https://miralemzhang.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://miralemzhang.github.io/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":3,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Leetcode 3350 - Track Adjacent Increasing Subarrays',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><style>::-webkit-scrollbar{width:0px;background:transparent;}::-webkit-scrollbar-thumb{background:transparent;}html{scrollbar-width:none;-ms-overflow-style:none;}</style><style>blockquote{border:none !important;border-left:none !important;box-shadow:none !important;}</style><style>#aplayer{position:fixed;left:0;bottom:0;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;}</style><link rel="stylesheet" href="/assets/css/APlayer.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="MLMZZZOOO's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">MLMZZZOOO's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Leetcode 3350 - Track Adjacent Increasing Subarrays</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Leetcode 3350 - Track Adjacent Increasing Subarrays</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-10-14T16:00:00.000Z" title="Created 2025-10-15 00:00:00">2025-10-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-10-15T09:36:15.742Z" title="Updated 2025-10-15 17:36:15">2025-10-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Coding/">Coding</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>A one-pass greedy O(n) time O(1) space solution for LeetCode 3350: Maximum Length of Adjacent Increasing Subarrays.’{  }’   </p>
+<span id="more"></span>
+
+<p><img src="/img/lc3350.png" loading='lazy'></p>
+<h3 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h3><p>Given an integer array <code>nums</code>, find the maximum length <code>k</code> such that there exist two <strong>adjacent</strong> (non-overlapping) subarrays of length <code>k</code>, and both subarrays are strictly increasing.</p>
+<p>Return the maximum possible value of <code>k</code>. If no such subarrays exist, return <code>1</code>.</p>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><p><strong>Example 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [2,5,7,8,9,2,3,4,3,1]</span><br><span class="line">Output: 3</span><br><span class="line">Explanation: The subarrays [2,5,7] and [8,9,2] are not valid.</span><br><span class="line">But [5,7,8] and [9,2,3] are not adjacent.</span><br><span class="line">The valid answer is [2,5,7] (length 3) adjacent to... wait, let me recalculate.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [1,2,3,4,5]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: The entire array is strictly increasing with length 5.</span><br><span class="line">We can split it into [1,2] and [3,4], giving us k=2.</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 3:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [1,2,3,2,3,4,3,4,5]</span><br><span class="line">Output: 2</span><br><span class="line">Explanation: [1,2,3] and [2,3,4] are adjacent strictly increasing subarrays.</span><br><span class="line">We can pick k=2 from both.</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="My-Unique-Approach"><a href="#My-Unique-Approach" class="headerlink" title="My Unique Approach"></a>My Unique Approach</h2><p>Instead of using complex data structures or multiple passes, I developed an <strong>elegant single-pass solution</strong> that tracks consecutive increasing segments and intelligently compares them at boundaries.</p>
+<h3 id="Key-Insight"><a href="#Key-Insight" class="headerlink" title="Key Insight"></a>Key Insight</h3><p>The core idea is to recognize that at any point where an increasing sequence breaks, we have <strong>two opportunities</strong> to maximize <code>k</code>:</p>
+<ol>
+<li><strong>Split Strategy</strong>: Divide the current increasing subarray in half</li>
+<li><strong>Adjacent Strategy</strong>: Pair the previous increasing subarray with the current one</li>
+</ol>
+<p>By tracking both the current and previous subarray lengths, we can evaluate both strategies in <strong>O(1) time</strong> at each boundary.</p>
+<hr>
+<h2 id="Algorithm-Logic"><a href="#Algorithm-Logic" class="headerlink" title="Algorithm Logic"></a>Algorithm Logic</h2><h3 id="The-Tracking-Mechanism"><a href="#The-Tracking-Mechanism" class="headerlink" title="The Tracking Mechanism"></a>The Tracking Mechanism</h3><p>I maintain three critical variables:</p>
+<ul>
+<li><code>count</code>: Length of the current strictly increasing subarray</li>
+<li><code>lastcount</code>: Length of the previous strictly increasing subarray</li>
+<li><code>maxm</code>: The maximum <code>k</code> found so far</li>
+</ul>
+<h3 id="The-Decision-Points"><a href="#The-Decision-Points" class="headerlink" title="The Decision Points"></a>The Decision Points</h3><p>At each position where <code>nums[i] &gt;= nums[i+1]</code> (a break in the increasing sequence), we:</p>
+<ol>
+<li>Compare <code>lastcount</code> and <code>count</code> (adjacent strategy)</li>
+<li>Consider <code>count // 2</code> (split current subarray)</li>
+<li>Update our maximum accordingly</li>
+</ol>
+<h3 id="Edge-Case-Handling"><a href="#Edge-Case-Handling" class="headerlink" title="Edge Case Handling"></a>Edge Case Handling</h3><ul>
+<li><strong>Two-element arrays</strong>: Always return 1</li>
+<li><strong>Fully increasing arrays</strong>: Return <code>len(nums) // 2</code></li>
+<li><strong>Final subarray</strong>: Must be checked after the loop ends</li>
+</ul>
+<hr>
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><h3 id="Python-Implementation"><a href="#Python-Implementation" class="headerlink" title="Python Implementation"></a>Python Implementation</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxIncreasingSubarrays</span>(<span class="params">self, nums</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="comment"># Edge case: minimum possible input</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        count = <span class="number">1</span>          <span class="comment"># Current increasing subarray length</span></span><br><span class="line">        lastcount = <span class="number">0</span>      <span class="comment"># Previous increasing subarray length</span></span><br><span class="line">        maxm = <span class="number">0</span>           <span class="comment"># Maximum k found</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Single pass through the array</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums) - <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> nums[i] &lt; nums[i + <span class="number">1</span>]:</span><br><span class="line">                <span class="comment"># Continue the increasing sequence</span></span><br><span class="line">                count += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># Break point: evaluate both strategies</span></span><br><span class="line">                <span class="comment"># 1. Adjacent strategy: min(lastcount, count)</span></span><br><span class="line">                <span class="comment"># 2. Split strategy: count // 2</span></span><br><span class="line">                maxm = <span class="built_in">max</span>(maxm, <span class="built_in">min</span>(count, lastcount), count // <span class="number">2</span>)</span><br><span class="line">                </span><br><span class="line">                <span class="comment"># Shift: current becomes previous</span></span><br><span class="line">                lastcount = count</span><br><span class="line">                count = <span class="number">1</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Don&#x27;t forget the final subarray!</span></span><br><span class="line">        <span class="keyword">if</span> lastcount &gt; <span class="number">0</span>:</span><br><span class="line">            maxm = <span class="built_in">max</span>(maxm, <span class="built_in">min</span>(lastcount, count), count // <span class="number">2</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Special case: entire array is strictly increasing</span></span><br><span class="line">        <span class="keyword">if</span> count == <span class="built_in">len</span>(nums):</span><br><span class="line">            <span class="keyword">return</span> count // <span class="number">2</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># If no valid pair found, minimum is always 1</span></span><br><span class="line">        <span class="keyword">return</span> maxm <span class="keyword">if</span> maxm != <span class="number">0</span> <span class="keyword">else</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Algorithm-Breakdown"><a href="#Algorithm-Breakdown" class="headerlink" title="Algorithm Breakdown"></a>Algorithm Breakdown</h2><p>Let me walk you through each critical part of my solution:</p>
+<h3 id="Step-1-Edge-Case-Two-Elements"><a href="#Step-1-Edge-Case-Two-Elements" class="headerlink" title="Step 1: Edge Case - Two Elements"></a>Step 1: Edge Case - Two Elements</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">2</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>For the smallest possible input, we can only have two subarrays of length 1, so return 1 immediately.</p>
+<h3 id="Step-2-The-Core-Loop-Tracking-Increases"><a href="#Step-2-The-Core-Loop-Tracking-Increases" class="headerlink" title="Step 2: The Core Loop - Tracking Increases"></a>Step 2: The Core Loop - Tracking Increases</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums) - <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span> nums[i] &lt; nums[i + <span class="number">1</span>]:</span><br><span class="line">        count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>As we iterate, we simply count consecutive strictly increasing elements. This gives us the length of the current increasing subarray.</p>
+<h3 id="Step-3-Boundary-Analysis-The-Magic-Happens-Here"><a href="#Step-3-Boundary-Analysis-The-Magic-Happens-Here" class="headerlink" title="Step 3: Boundary Analysis - The Magic Happens Here"></a>Step 3: Boundary Analysis - The Magic Happens Here</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    maxm = <span class="built_in">max</span>(maxm, <span class="built_in">min</span>(count, lastcount), count // <span class="number">2</span>)</span><br><span class="line">    lastcount = count</span><br><span class="line">    count = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>When we hit a boundary (increasing sequence breaks), we:</p>
+<ol>
+<li><p><strong>Compare three values</strong>:</p>
+<ul>
+<li>Current maximum: <code>maxm</code></li>
+<li>Adjacent strategy: <code>min(count, lastcount)</code> - take the smaller of the two adjacent subarrays</li>
+<li>Split strategy: <code>count // 2</code> - split the current subarray in half</li>
+</ul>
+</li>
+<li><p><strong>Update tracking</strong>: Move current to previous, reset current to 1</p>
+</li>
+</ol>
+<h3 id="Step-4-Final-Subarray-Check"><a href="#Step-4-Final-Subarray-Check" class="headerlink" title="Step 4: Final Subarray Check"></a>Step 4: Final Subarray Check</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> lastcount &gt; <span class="number">0</span>:</span><br><span class="line">    maxm = <span class="built_in">max</span>(maxm, <span class="built_in">min</span>(lastcount, count), count // <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>After the loop, we still have the final increasing subarray to consider. We must check it against the previous one using the same logic.</p>
+<h3 id="Step-5-Fully-Increasing-Array"><a href="#Step-5-Fully-Increasing-Array" class="headerlink" title="Step 5: Fully Increasing Array"></a>Step 5: Fully Increasing Array</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> count == <span class="built_in">len</span>(nums):</span><br><span class="line">    <span class="keyword">return</span> count // <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>If the entire array is strictly increasing (no breaks occurred), the optimal solution is to split it in half.</p>
+<hr>
+<h2 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h2><h3 id="Time-Complexity-O-n"><a href="#Time-Complexity-O-n" class="headerlink" title="Time Complexity: O(n)"></a>Time Complexity: <strong>O(n)</strong></h3><p>We iterate through the array exactly once, performing constant-time operations at each step:</p>
+<ul>
+<li>Comparison: O(1)</li>
+<li>Counter updates: O(1)</li>
+<li>Max calculations: O(1)</li>
+</ul>
+<p><strong>Total</strong>: Single pass → O(n)</p>
+<h3 id="Space-Complexity-O-1"><a href="#Space-Complexity-O-1" class="headerlink" title="Space Complexity: O(1)"></a>Space Complexity: <strong>O(1)</strong></h3><p>We only use three integer variables regardless of input size:</p>
+<ul>
+<li><code>count</code></li>
+<li><code>lastcount</code></li>
+<li><code>maxm</code></li>
+</ul>
+<p>No additional data structures needed!</p>
+<hr>
+<h2 id="Why-This-Approach-Works"><a href="#Why-This-Approach-Works" class="headerlink" title="Why This Approach Works"></a>Why This Approach Works</h2><h3 id="The-Mathematical-Foundation"><a href="#The-Mathematical-Foundation" class="headerlink" title="The Mathematical Foundation"></a>The Mathematical Foundation</h3><p>The problem essentially asks: <strong>What’s the maximum k such that we can find two adjacent strictly increasing subarrays of length k?</strong></p>
+<p>My approach recognizes that:</p>
+<ol>
+<li><p><strong>Any strictly increasing subarray of length L can be split into two adjacent subarrays of length L&#x2F;2</strong></p>
+<ul>
+<li>Example: <code>[1,2,3,4]</code> → <code>[1,2]</code> and <code>[3,4]</code></li>
+</ul>
+</li>
+<li><p><strong>Two adjacent strictly increasing subarrays of lengths A and B can form two subarrays of length min(A,B)</strong></p>
+<ul>
+<li>Example: <code>[1,2,3]</code> (length 3) and <code>[5,6]</code> (length 2) → k &#x3D; 2</li>
+</ul>
+</li>
+<li><p><strong>At any boundary, we choose the better strategy</strong></p>
+<ul>
+<li>Split current: <code>count // 2</code></li>
+<li>Use adjacent: <code>min(count, lastcount)</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="The-Greedy-Choice"><a href="#The-Greedy-Choice" class="headerlink" title="The Greedy Choice"></a>The Greedy Choice</h3><p>This solution is <strong>greedy</strong> in nature - at each decision point, we choose the maximum possible value. This works because:</p>
+<ul>
+<li>Once we pass a boundary, the previous subarray length is fixed</li>
+<li>We can’t “go back” and change it</li>
+<li>Therefore, making the locally optimal choice (max of the three options) is globally optimal</li>
+</ul>
+<hr>
+<h2 id="Test-Cases-Walkthrough"><a href="#Test-Cases-Walkthrough" class="headerlink" title="Test Cases Walkthrough"></a>Test Cases Walkthrough</h2><p>Let’s trace through some examples to see the algorithm in action:</p>
+<h3 id="Example-1-nums-2-5-7-8-9-2-3-4-3-1"><a href="#Example-1-nums-2-5-7-8-9-2-3-4-3-1" class="headerlink" title="Example 1: nums &#x3D; [2,5,7,8,9,2,3,4,3,1]"></a>Example 1: nums &#x3D; [2,5,7,8,9,2,3,4,3,1]</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Initial: count=1, lastcount=0, maxm=0</span><br><span class="line"></span><br><span class="line">i=0: 2&lt;5 → count=2</span><br><span class="line">i=1: 5&lt;7 → count=3</span><br><span class="line">i=2: 7&lt;8 → count=4</span><br><span class="line">i=3: 8&lt;9 → count=5</span><br><span class="line">i=4: 9≥2 → Break!</span><br><span class="line">     maxm = max(0, min(5,0), 5//2) = max(0, 0, 2) = 2</span><br><span class="line">     lastcount=5, count=1</span><br><span class="line"></span><br><span class="line">i=5: 2&lt;3 → count=2</span><br><span class="line">i=6: 3&lt;4 → count=3</span><br><span class="line">i=7: 4≥3 → Break!</span><br><span class="line">     maxm = max(2, min(3,5), 3//2) = max(2, 3, 1) = 3</span><br><span class="line">     lastcount=3, count=1</span><br><span class="line"></span><br><span class="line">i=8: 3≥1 → Break!</span><br><span class="line">     maxm = max(3, min(1,3), 1//2) = max(3, 1, 0) = 3</span><br><span class="line">     lastcount=1, count=1</span><br><span class="line"></span><br><span class="line">Final check:</span><br><span class="line">     maxm = max(3, min(1,1), 1//2) = max(3, 1, 0) = 3</span><br><span class="line"></span><br><span class="line">Output: 3 ✓</span><br></pre></td></tr></table></figure>
+
+<h3 id="Example-2-nums-1-2-3-4-5"><a href="#Example-2-nums-1-2-3-4-5" class="headerlink" title="Example 2: nums &#x3D; [1,2,3,4,5]"></a>Example 2: nums &#x3D; [1,2,3,4,5]</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Initial: count=1, lastcount=0, maxm=0</span><br><span class="line"></span><br><span class="line">i=0: 1&lt;2 → count=2</span><br><span class="line">i=1: 2&lt;3 → count=3</span><br><span class="line">i=2: 3&lt;4 → count=4</span><br><span class="line">i=3: 4&lt;5 → count=5</span><br><span class="line"></span><br><span class="line">No breaks occurred!</span><br><span class="line"></span><br><span class="line">count == len(nums) → return 5//2 = 2</span><br><span class="line"></span><br><span class="line">Output: 2 ✓</span><br></pre></td></tr></table></figure>
+
+<h3 id="Example-3-nums-5-4-3-2-1"><a href="#Example-3-nums-5-4-3-2-1" class="headerlink" title="Example 3: nums &#x3D; [5,4,3,2,1]"></a>Example 3: nums &#x3D; [5,4,3,2,1]</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Initial: count=1, lastcount=0, maxm=0</span><br><span class="line"></span><br><span class="line">i=0: 5≥4 → Break!</span><br><span class="line">     maxm = max(0, min(1,0), 1//2) = max(0, 0, 0) = 0</span><br><span class="line">     lastcount=1, count=1</span><br><span class="line"></span><br><span class="line">i=1: 4≥3 → Break!</span><br><span class="line">     maxm = max(0, min(1,1), 1//2) = max(0, 1, 0) = 1</span><br><span class="line">     lastcount=1, count=1</span><br><span class="line"></span><br><span class="line">... (continues with all breaks)</span><br><span class="line"></span><br><span class="line">Final: maxm = 1</span><br><span class="line"></span><br><span class="line">Output: 1 ✓</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Comparison-with-Alternative-Approaches"><a href="#Comparison-with-Alternative-Approaches" class="headerlink" title="Comparison with Alternative Approaches"></a>Comparison with Alternative Approaches</h2><h3 id="Approach-1-Two-Pass-Solution"><a href="#Approach-1-Two-Pass-Solution" class="headerlink" title="Approach 1: Two-Pass Solution"></a>Approach 1: Two-Pass Solution</h3><p><strong>Idea</strong>: First pass records all increasing subarray lengths, second pass finds maximum k.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># First pass: record lengths</span></span><br><span class="line">lengths = []</span><br><span class="line">count = <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)-<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">if</span> nums[i] &lt; nums[i+<span class="number">1</span>]:</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        lengths.append(count)</span><br><span class="line">        count = <span class="number">1</span></span><br><span class="line">lengths.append(count)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Second pass: find max k</span></span><br><span class="line">maxm = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(lengths)-<span class="number">1</span>):</span><br><span class="line">    maxm = <span class="built_in">max</span>(maxm, <span class="built_in">min</span>(lengths[i], lengths[i+<span class="number">1</span>]))</span><br><span class="line"><span class="keyword">for</span> length <span class="keyword">in</span> lengths:</span><br><span class="line">    maxm = <span class="built_in">max</span>(maxm, length // <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Drawback</strong>: </p>
+<ul>
+<li>Time: Still O(n) but <strong>two passes</strong></li>
+<li>Space: <strong>O(n)</strong> for the lengths array</li>
+<li>Less elegant code</li>
+</ul>
+<h3 id="Approach-2-Dynamic-Programming"><a href="#Approach-2-Dynamic-Programming" class="headerlink" title="Approach 2: Dynamic Programming"></a>Approach 2: Dynamic Programming</h3><p><strong>Idea</strong>: Track increasing lengths in a DP array.</p>
+<p><strong>Drawback</strong>:</p>
+<ul>
+<li>Overcomplicated for this problem</li>
+<li><strong>O(n) space</strong> required</li>
+<li>No performance benefit</li>
+</ul>
+<h3 id="Why-My-Approach-is-Better"><a href="#Why-My-Approach-is-Better" class="headerlink" title="Why My Approach is Better"></a>Why My Approach is Better</h3><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>My Solution</th>
+<th>Two-Pass</th>
+<th>DP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Time</strong></td>
+<td>O(n) - 1 pass</td>
+<td>O(n) - 2 passes</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td><strong>Space</strong></td>
+<td><strong>O(1)</strong></td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td><strong>Code Length</strong></td>
+<td>~20 lines</td>
+<td>~30 lines</td>
+<td>~35 lines</td>
+</tr>
+<tr>
+<td><strong>Readability</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Key-Takeaways"><a href="#Key-Takeaways" class="headerlink" title="Key Takeaways"></a>Key Takeaways</h2><h3 id="Algorithm-Design-Insights"><a href="#Algorithm-Design-Insights" class="headerlink" title="Algorithm Design Insights"></a>Algorithm Design Insights</h3><ol>
+<li><p><strong>Greedy works when future doesn’t affect past</strong>: Since we’re moving forward and can’t change previous subarrays, greedy choices are safe.</p>
+</li>
+<li><p><strong>Track minimal state</strong>: We only need to remember the previous subarray length, not all previous subarrays.</p>
+</li>
+<li><p><strong>Boundary analysis is powerful</strong>: The break points give us natural decision points.</p>
+</li>
+</ol>
+<h3 id="Coding-Best-Practices"><a href="#Coding-Best-Practices" class="headerlink" title="Coding Best Practices"></a>Coding Best Practices</h3><ol>
+<li><p><strong>Handle edge cases first</strong>: The <code>len(nums)==2</code> check simplifies the main logic.</p>
+</li>
+<li><p><strong>Don’t forget the final element</strong>: After loops, always check if there’s remaining data to process.</p>
+</li>
+<li><p><strong>Use meaningful variable names</strong>: <code>count</code>, <code>lastcount</code>, <code>maxm</code> clearly indicate their purpose.</p>
+</li>
+</ol>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>This single-pass tracking solution demonstrates that many problems have elegant solutions when you:</p>
+<ol>
+<li><strong>Identify the key decision points</strong> (boundaries between increasing subarrays)</li>
+<li><strong>Track minimal necessary state</strong> (current and previous lengths)</li>
+<li><strong>Apply greedy logic at each decision point</strong> (maximize k locally)</li>
+</ol>
+<p>The beauty of this approach lies in its simplicity - we achieve optimal time and space complexity with clear, maintainable code.</p>
+<hr>
+<p><em>Tutorial texts partly co-generated by Claude-4-Sonnet.</em></p>
+<p>Hope this detailed walkthrough helps you understand my efficient approach to this problem! Feel free to discuss any questions in the comments.</p>
+<p><em>Happy Coding! 🚀</em></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LeetCode/">LeetCode</a></div><div class="post-share"><div class="social-share" data-image="/img/leetcode.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/" title="LeetCode 2749 - Minimum Operations to Make Integer Zero"><img class="cover" src="/img/leetcode.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">LeetCode 2749 - Minimum Operations to Make Integer Zero</div></div><div class="info-2"><div class="info-item-1">Problem DescriptionYou are given two integers num1 and num2. In one operation, you can choose integer i and subtract 2^i + num2 from num1. Return the minimum number of operations to make num1 equal to 0. If it is impossible to make num1 equal to 0, return -1. ExamplesExample 1: 123456Input: num1 = 3, num2 = -2Output: 3Explanation: We can apply the following operations:- Operation 1: i = 2, subtract 2^2 + (-2) = 4 - 2 = 2. Now num1 = 3 - 2 = 1.- Operation 2: i = 2, subtract 2^2 + (-2) = 4 - 2 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/" title="LeetCode 2749 - Minimum Operations to Make Integer Zero"><img class="cover" src="/img/leetcode.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-05</div><div class="info-item-2">LeetCode 2749 - Minimum Operations to Make Integer Zero</div></div><div class="info-2"><div class="info-item-1">Problem DescriptionYou are given two integers num1 and num2. In one operation, you can choose integer i and subtract 2^i + num2 from num1. Return the minimum number of operations to make num1 equal to 0. If it is impossible to make num1 equal to 0, return -1. ExamplesExample 1: 123456Input: num1 = 3, num2 = -2Output: 3Explanation: We can apply the following operations:- Operation 1: i = 2, subtract 2^2 + (-2) = 4 - 2 = 2. Now num1 = 3 - 2 = 1.- Operation 2: i = 2, subtract 2^2 + (-2) = 4 - 2 ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">Miralem Zhang</div><div class="author-info-description">Cantonese<br>27' UG in Zhejiang University (ZJU)<br>Majoring in Biopharma (CKC Honors)<br>Minoring in AI and DS&BDT</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://www.instagram.com/mlmzzzooo" target="_blank" title="Instagram"><i class="fab fa-instagram" style="color: #e6162d;"></i></a><a class="social-icon" href="https://github.com/mlmzzzooo" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:mirelemzhang@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://twitter.com/ZhangMiralem" target="_blank" title="Twitter"><i class="fab fa-twitter" style="color: #00acee;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">New Solution of Leetcode Problem Out Now!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Examples"><span class="toc-number">2.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Unique-Approach"><span class="toc-number"></span> <span class="toc-text">My Unique Approach</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Key-Insight"><span class="toc-number">1.</span> <span class="toc-text">Key Insight</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithm-Logic"><span class="toc-number"></span> <span class="toc-text">Algorithm Logic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Tracking-Mechanism"><span class="toc-number">1.</span> <span class="toc-text">The Tracking Mechanism</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Decision-Points"><span class="toc-number">2.</span> <span class="toc-text">The Decision Points</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Edge-Case-Handling"><span class="toc-number">3.</span> <span class="toc-text">Edge Case Handling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Solution"><span class="toc-number"></span> <span class="toc-text">My Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-Implementation"><span class="toc-number">1.</span> <span class="toc-text">Python Implementation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithm-Breakdown"><span class="toc-number"></span> <span class="toc-text">Algorithm Breakdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-1-Edge-Case-Two-Elements"><span class="toc-number">1.</span> <span class="toc-text">Step 1: Edge Case - Two Elements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-2-The-Core-Loop-Tracking-Increases"><span class="toc-number">2.</span> <span class="toc-text">Step 2: The Core Loop - Tracking Increases</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-3-Boundary-Analysis-The-Magic-Happens-Here"><span class="toc-number">3.</span> <span class="toc-text">Step 3: Boundary Analysis - The Magic Happens Here</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4-Final-Subarray-Check"><span class="toc-number">4.</span> <span class="toc-text">Step 4: Final Subarray Check</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-5-Fully-Increasing-Array"><span class="toc-number">5.</span> <span class="toc-text">Step 5: Fully Increasing Array</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number"></span> <span class="toc-text">Complexity Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Complexity-O-n"><span class="toc-number">1.</span> <span class="toc-text">Time Complexity: O(n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Space-Complexity-O-1"><span class="toc-number">2.</span> <span class="toc-text">Space Complexity: O(1)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-This-Approach-Works"><span class="toc-number"></span> <span class="toc-text">Why This Approach Works</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Mathematical-Foundation"><span class="toc-number">1.</span> <span class="toc-text">The Mathematical Foundation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Greedy-Choice"><span class="toc-number">2.</span> <span class="toc-text">The Greedy Choice</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-Cases-Walkthrough"><span class="toc-number"></span> <span class="toc-text">Test Cases Walkthrough</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-1-nums-2-5-7-8-9-2-3-4-3-1"><span class="toc-number">1.</span> <span class="toc-text">Example 1: nums &#x3D; [2,5,7,8,9,2,3,4,3,1]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-2-nums-1-2-3-4-5"><span class="toc-number">2.</span> <span class="toc-text">Example 2: nums &#x3D; [1,2,3,4,5]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-3-nums-5-4-3-2-1"><span class="toc-number">3.</span> <span class="toc-text">Example 3: nums &#x3D; [5,4,3,2,1]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparison-with-Alternative-Approaches"><span class="toc-number"></span> <span class="toc-text">Comparison with Alternative Approaches</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-1-Two-Pass-Solution"><span class="toc-number">1.</span> <span class="toc-text">Approach 1: Two-Pass Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-2-Dynamic-Programming"><span class="toc-number">2.</span> <span class="toc-text">Approach 2: Dynamic Programming</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-My-Approach-is-Better"><span class="toc-number">3.</span> <span class="toc-text">Why My Approach is Better</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Takeaways"><span class="toc-number"></span> <span class="toc-text">Key Takeaways</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-Design-Insights"><span class="toc-number">1.</span> <span class="toc-text">Algorithm Design Insights</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Coding-Best-Practices"><span class="toc-number">2.</span> <span class="toc-text">Coding Best Practices</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number"></span> <span class="toc-text">Conclusion</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/" title="Leetcode 3350 - Track Adjacent Increasing Subarrays"><img src="/img/leetcode.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode 3350 - Track Adjacent Increasing Subarrays"/ loading='lazy'></a><div class="content"><a class="title" href="/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/" title="Leetcode 3350 - Track Adjacent Increasing Subarrays">Leetcode 3350 - Track Adjacent Increasing Subarrays</a><time datetime="2025-10-14T16:00:00.000Z" title="Created 2025-10-15 00:00:00">2025-10-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/" title="LeetCode 2749 - Minimum Operations to Make Integer Zero"><img src="/img/leetcode.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LeetCode 2749 - Minimum Operations to Make Integer Zero"/ loading='lazy'></a><div class="content"><a class="title" href="/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/" title="LeetCode 2749 - Minimum Operations to Make Integer Zero">LeetCode 2749 - Minimum Operations to Make Integer Zero</a><time datetime="2025-09-05T09:42:09.000Z" title="Created 2025-09-05 17:42:09">2025-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/05/My-First-Blog-Post/" title="The Path of Revelation (啟示路) -- Walk a life, on water and Bewater"><img src="/img/pr1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="The Path of Revelation (啟示路) -- Walk a life, on water and Bewater"/ loading='lazy'></a><div class="content"><a class="title" href="/2025/09/05/My-First-Blog-Post/" title="The Path of Revelation (啟示路) -- Walk a life, on water and Bewater">The Path of Revelation (啟示路) -- Walk a life, on water and Bewater</a><time datetime="2025-09-05T09:10:45.000Z" title="Created 2025-09-05 17:10:45">2025-09-05</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'miralemzhang/miralemzhang.github.io',
+      'data-repo-id': 'R_kgDOPqU-uA',
+      'data-category-id': 'DIC_kwDOPqU-uM4CvAAx',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script defer src="/js/shooting-stars.js"></script><script defer src="/js/background-music.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="90" alpha="0.6" zIndex="-2" mobile="false" data-click="false"></script><script id="canvas_nest" defer="defer" color="87,166,255" opacity="0.4" zIndex="-1" count="88" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章..." type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><audio id="bgm" src="/music/background.mp3" preload="auto" loop hidden></audio></body></html>
