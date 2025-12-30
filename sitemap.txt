@@ -1,11 +1,12 @@
+https://miralemzhang.github.io/about/index.html
 https://miralemzhang.github.io/2025/12/24/2025/
 https://miralemzhang.github.io/2025/11/07/LeetCode-3363-Find-Maximum-Number-of-Fruits-Collected/
 https://miralemzhang.github.io/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/
 https://miralemzhang.github.io/2025/09/05/My-First-Blog-Post/
 https://miralemzhang.github.io/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/
 https://miralemzhang.github.io/
-https://miralemzhang.github.io/tags/Annual-Review/
 https://miralemzhang.github.io/tags/LeetCode/
 https://miralemzhang.github.io/tags/Book-Music-Review/
-https://miralemzhang.github.io/categories/Thoughts/
+https://miralemzhang.github.io/tags/Annual-Review/
 https://miralemzhang.github.io/categories/Coding/
+https://miralemzhang.github.io/categories/Thoughts/
