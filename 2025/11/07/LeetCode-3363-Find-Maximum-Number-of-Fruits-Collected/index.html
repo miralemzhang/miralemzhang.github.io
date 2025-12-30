@@ -1,0 +1,486 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LeetCode 3363 - Find the Maximum Number of Fruits Collected | MLMZZZOOO's Blog</title><meta name="author" content="Miralem Zhang"><meta name="copyright" content="Miralem Zhang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="A memoization approach to the three-path problem: LeetCode 3363 - Find the Maximum Number of Fruits Collected.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode 3363 - Find the Maximum Number of Fruits Collected">
+<meta property="og:url" content="https://miralemzhang.github.io/2025/11/07/LeetCode-3363-Find-Maximum-Number-of-Fruits-Collected/index.html">
+<meta property="og:site_name" content="MLMZZZOOO&#39;s Blog">
+<meta property="og:description" content="A memoization approach to the three-path problem: LeetCode 3363 - Find the Maximum Number of Fruits Collected.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://miralemzhang.github.io/img/leetcode.png">
+<meta property="article:published_time" content="2025-11-07T13:20:05.000Z">
+<meta property="article:modified_time" content="2025-12-30T10:33:31.836Z">
+<meta property="article:author" content="Miralem Zhang">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://miralemzhang.github.io/img/leetcode.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LeetCode 3363 - Find the Maximum Number of Fruits Collected",
+  "url": "https://miralemzhang.github.io/2025/11/07/LeetCode-3363-Find-Maximum-Number-of-Fruits-Collected/",
+  "image": "https://miralemzhang.github.io/img/leetcode.png",
+  "datePublished": "2025-11-07T13:20:05.000Z",
+  "dateModified": "2025-12-30T10:33:31.836Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Miralem Zhang",
+      "url": "https://miralemzhang.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://miralemzhang.github.io/2025/11/07/LeetCode-3363-Find-Maximum-Number-of-Fruits-Collected/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"top_n_per_article":3,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'LeetCode 3363 - Find the Maximum Number of Fruits Collected',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><style>::-webkit-scrollbar{width:0px;background:transparent;}::-webkit-scrollbar-thumb{background:transparent;}html{scrollbar-width:none;-ms-overflow-style:none;}</style><style>blockquote{border:none !important;border-left:none !important;box-shadow:none !important;}</style><style>#aplayer{position:fixed;left:0;bottom:0;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none;}</style><link rel="stylesheet" href="/assets/css/APlayer.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="MLMZZZOOO's Blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">MLMZZZOOO's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">LeetCode 3363 - Find the Maximum Number of Fruits Collected</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">LeetCode 3363 - Find the Maximum Number of Fruits Collected</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-11-07T13:20:05.000Z" title="Created 2025-11-07 21:20:05">2025-11-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-12-30T10:33:31.836Z" title="Updated 2025-12-30 18:33:31">2025-12-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Coding/">Coding</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><p>There is a game dungeon comprised of <code>n x n</code> rooms arranged in a grid.</p>
+<p>You are given a 2D array <code>fruits</code> of size <code>n x n</code>, where <code>fruits[i][j]</code> represents the number of fruits in the room at position <code>(i, j)</code>. Three children will play in the game dungeon, with <strong>initial positions</strong> at the corner rooms <code>(0, 0)</code>, <code>(0, n - 1)</code>, and <code>(n - 1, 0)</code>.</p>
+<p>The children will make <strong>exactly</strong> <code>n - 1</code> moves according to the following rules to reach the room <code>(n - 1, n - 1)</code>:</p>
+<ul>
+<li>The child starting from <code>(0, 0)</code> must move from their current room <code>(i, j)</code> to one of the rooms <code>(i + 1, j + 1)</code>, <code>(i + 1, j)</code>, or <code>(i, j + 1)</code> if the target room exists.</li>
+<li>The child starting from <code>(0, n - 1)</code> must move from their current room <code>(i, j)</code> to one of the rooms <code>(i + 1, j - 1)</code>, <code>(i + 1, j)</code>, or <code>(i + 1, j + 1)</code> if the target room exists.</li>
+<li>The child starting from <code>(n - 1, 0)</code> must move from their current room <code>(i, j)</code> to one of the rooms <code>(i - 1, j + 1)</code>, <code>(i, j + 1)</code>, or <code>(i + 1, j + 1)</code> if the target room exists.</li>
+</ul>
+<p>When a child enters a room, they will collect all the fruits there. If two or more children enter the same room, only one child will collect the fruits, and the room will be emptied after they leave.</p>
+<p>Return the <strong>maximum</strong> number of fruits the children can collect from the dungeon.</p>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><p><strong>Example 1:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Input: fruits = [[1,2,3,4],[5,6,8,7],[9,10,11,12],[13,14,15,16]]</span><br><span class="line">Output: 100</span><br><span class="line">Explanation: </span><br><span class="line">- Child 1 (from (0,0)): (0,0) → (1,1) → (2,2) → (3,3)</span><br><span class="line">- Child 2 (from (0,3)): (0,3) → (1,3) → (2,3) → (3,3)</span><br><span class="line">- Child 3 (from (3,0)): (3,0) → (3,1) → (3,2) → (3,3)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example 2:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: fruits = [[1,1],[1,1]]</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: All children end up at (1,1) collecting all fruits.</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Intuition"><a href="#Intuition" class="headerlink" title="Intuition"></a>Intuition</h2><p>When I first encountered this problem, my intuition was that this is a <strong>multi-path dynamic programming problem</strong>. Three children start from different positions simultaneously and must reach the same destination <code>(n-1, n-1)</code> in exactly <code>n-1</code> steps, with the constraint that when multiple children enter the same room, only one can collect the fruits.</p>
+<p>This reminded me of a variant of the classic <strong>“Cherry Pickup”</strong> problem, but with three paths instead of two, which significantly increases the complexity. The key insight is that we need to simultaneously track the position states of all three children and correctly handle fruit collection in overlapping rooms.</p>
+<hr>
+<h2 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h2><p>I adopted a <strong>4-dimensional dynamic programming</strong> approach:</p>
+<h3 id="State-Definition"><a href="#State-Definition" class="headerlink" title="State Definition"></a>State Definition</h3><p><code>dp(step, pos_1, pos_2, pos_3)</code> represents the maximum number of fruits that can be collected when the three children are at positions <code>pos_1</code>, <code>pos_2</code>, <code>pos_3</code> respectively at step <code>step</code>.</p>
+<h3 id="Movement-Rules"><a href="#Movement-Rules" class="headerlink" title="Movement Rules"></a>Movement Rules</h3><p>Each child has different movement constraints:</p>
+<ul>
+<li><strong>Child 1</strong> (starting from <code>(0,0)</code>): can move right <code>(i,j+1)</code>, down <code>(i+1,j)</code>, or diagonally down-right <code>(i+1,j+1)</code></li>
+<li><strong>Child 2</strong> (starting from <code>(0,n-1)</code>): can move down-left <code>(i+1,j-1)</code>, down <code>(i+1,j)</code>, or down-right <code>(i+1,j+1)</code></li>
+<li><strong>Child 3</strong> (starting from <code>(n-1,0)</code>): can move up-right <code>(i-1,j+1)</code>, right <code>(i,j+1)</code>, or down-right <code>(i+1,j+1)</code></li>
+</ul>
+<h3 id="State-Transition"><a href="#State-Transition" class="headerlink" title="State Transition"></a>State Transition</h3><p>For each state <code>(step, pos_1, pos_2, pos_3)</code>:</p>
+<ol>
+<li><strong>Calculate current reward</strong>: Sum up fruits at the three children’s current positions, counting overlapping positions only once.</li>
+<li><strong>Try all movement combinations</strong>: Each child chooses their next position according to their movement rules.</li>
+<li><strong>Recursive solution</strong>: Recursively calculate the maximum future reward for each movement combination.</li>
+<li><strong>Take maximum</strong>: Choose the maximum value among all possible combinations.</li>
+</ol>
+<h3 id="Base-Case"><a href="#Base-Case" class="headerlink" title="Base Case"></a>Base Case</h3><p>When <code>step = n-1</code>, check if all three children have reached the target position <code>(n-1, n-1)</code>:</p>
+<ul>
+<li>If all reached: return the fruit count at that position (can only be collected once).</li>
+<li>Otherwise: return <code>-∞</code> to indicate an invalid state.</li>
+</ul>
+<h3 id="Memoization-Optimization"><a href="#Memoization-Optimization" class="headerlink" title="Memoization Optimization"></a>Memoization Optimization</h3><p>Use a dictionary <code>memo</code> to cache computed states and avoid redundant calculations.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dp</span>(<span class="params">step, pos1, pos2, pos3</span>):</span><br><span class="line">    <span class="comment"># Check cache</span></span><br><span class="line">    <span class="keyword">if</span> (step, pos1, pos2, pos3) <span class="keyword">in</span> memo:</span><br><span class="line">        <span class="keyword">return</span> memo[(step, pos1, pos2, pos3)]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Base case</span></span><br><span class="line">    <span class="keyword">if</span> step == n - <span class="number">1</span>:</span><br><span class="line">        <span class="comment"># Check if all reached target position</span></span><br><span class="line">        ...</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># Calculate current reward + recursively solve future reward</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment"># Cache result and return</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Key-Insight-Path-Decomposition"><a href="#Key-Insight-Path-Decomposition" class="headerlink" title="Key Insight: Path Decomposition"></a>Key Insight: Path Decomposition</h2><p>A crucial observation simplifies this problem dramatically:</p>
+<ol>
+<li><p><strong>Child 1 is locked to the diagonal</strong>: Due to movement constraints and the requirement to reach <code>(n-1, n-1)</code> in exactly <code>n-1</code> steps, Child 1 <strong>must</strong> follow the main diagonal path <code>(0,0) → (1,1) → ... → (n-1,n-1)</code>.</p>
+</li>
+<li><p><strong>Child 2 stays above the diagonal</strong>: Starting at <code>(0, n-1)</code> and moving downward, Child 2’s valid positions satisfy <code>j ≥ i</code>.</p>
+</li>
+<li><p><strong>Child 3 stays below the diagonal</strong>: Starting at <code>(n-1, 0)</code> and moving rightward, Child 3’s valid positions satisfy <code>i ≥ j</code>.</p>
+</li>
+</ol>
+<p>This means the three paths <strong>naturally don’t overlap</strong> (except at the destination), allowing us to solve three independent subproblems!</p>
+<hr>
+<h2 id="My-Solution"><a href="#My-Solution" class="headerlink" title="My Solution"></a>My Solution</h2><h3 id="Python-Implementation"><a href="#Python-Implementation" class="headerlink" title="Python Implementation"></a>Python Implementation</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxCollectedFruits</span>(<span class="params">self, fruits</span>):</span><br><span class="line">        n = <span class="built_in">len</span>(fruits)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Child 1: Must follow the diagonal path</span></span><br><span class="line">        child1_fruits = <span class="built_in">sum</span>(fruits[i][i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n))</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">solve_child2</span>():</span><br><span class="line">            <span class="comment"># DP for child starting from (0, n-1)</span></span><br><span class="line">            dp = [[-<span class="number">1</span>] * n <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">            dp[n-<span class="number">1</span>][n-<span class="number">1</span>] = <span class="number">0</span>  <span class="comment"># Base case: destination reached</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># Fill DP table from bottom to top</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n-<span class="number">2</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                    <span class="keyword">if</span> j &lt; i:  <span class="comment"># Invalid: must stay above/on diagonal</span></span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    </span><br><span class="line">                    max_val = -<span class="number">1</span></span><br><span class="line">                    <span class="comment"># Try all three moves: down-left, down, down-right</span></span><br><span class="line">                    <span class="keyword">for</span> dj <span class="keyword">in</span> [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]:</span><br><span class="line">                        ni, nj = i + <span class="number">1</span>, j + dj</span><br><span class="line">                        <span class="keyword">if</span> <span class="number">0</span> &lt;= ni &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= nj &lt; n <span class="keyword">and</span> dp[ni][nj] != -<span class="number">1</span>:</span><br><span class="line">                            <span class="comment"># Don&#x27;t count diagonal cells (Child 1 collects them)</span></span><br><span class="line">                            curr_fruit = <span class="number">0</span> <span class="keyword">if</span> (i == j) <span class="keyword">else</span> fruits[i][j]</span><br><span class="line">                            max_val = <span class="built_in">max</span>(max_val, curr_fruit + dp[ni][nj])</span><br><span class="line">                    </span><br><span class="line">                    dp[i][j] = max_val</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> dp[<span class="number">0</span>][n-<span class="number">1</span>] <span class="keyword">if</span> dp[<span class="number">0</span>][n-<span class="number">1</span>] != -<span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">solve_child3</span>():</span><br><span class="line">            <span class="comment"># DP for child starting from (n-1, 0)</span></span><br><span class="line">            dp = [[-<span class="number">1</span>] * n <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">            dp[n-<span class="number">1</span>][n-<span class="number">1</span>] = <span class="number">0</span>  <span class="comment"># Base case: destination reached</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># Fill DP table from right to left</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n-<span class="number">2</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                    <span class="keyword">if</span> i &lt; j:  <span class="comment"># Invalid: must stay below/on diagonal</span></span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    </span><br><span class="line">                    max_val = -<span class="number">1</span></span><br><span class="line">                    <span class="comment"># Try all three moves: up-right, right, down-right</span></span><br><span class="line">                    <span class="keyword">for</span> di <span class="keyword">in</span> [-<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>]:</span><br><span class="line">                        ni, nj = i + di, j + <span class="number">1</span></span><br><span class="line">                        <span class="keyword">if</span> <span class="number">0</span> &lt;= ni &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= nj &lt; n <span class="keyword">and</span> dp[ni][nj] != -<span class="number">1</span>:</span><br><span class="line">                            <span class="comment"># Don&#x27;t count diagonal cells (Child 1 collects them)</span></span><br><span class="line">                            curr_fruit = <span class="number">0</span> <span class="keyword">if</span> (i == j) <span class="keyword">else</span> fruits[i][j]</span><br><span class="line">                            max_val = <span class="built_in">max</span>(max_val, curr_fruit + dp[ni][nj])</span><br><span class="line">                    </span><br><span class="line">                    dp[i][j] = max_val</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> dp[n-<span class="number">1</span>][<span class="number">0</span>] <span class="keyword">if</span> dp[n-<span class="number">1</span>][<span class="number">0</span>] != -<span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        child2_fruits = solve_child2()</span><br><span class="line">        child3_fruits = solve_child3()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> child1_fruits + child2_fruits + child3_fruits</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Algorithm-Breakdown"><a href="#Algorithm-Breakdown" class="headerlink" title="Algorithm Breakdown"></a>Algorithm Breakdown</h2><p>Let me walk you through each critical part of my solution:</p>
+<h3 id="Step-1-Child-1-Diagonal-Collection"><a href="#Step-1-Child-1-Diagonal-Collection" class="headerlink" title="Step 1: Child 1 - Diagonal Collection"></a>Step 1: Child 1 - Diagonal Collection</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">child1_fruits = <span class="built_in">sum</span>(fruits[i][i] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n))</span><br></pre></td></tr></table></figure>
+
+<p>Child 1 starting from <code>(0, 0)</code> has a critical constraint: each move must go to <code>(i+1, j+1)</code>, <code>(i+1, j)</code>, or <code>(i, j+1)</code>. Given that they must reach <code>(n-1, n-1)</code> in exactly <code>n-1</code> moves, the <strong>only valid path</strong> is the main diagonal! So we simply sum all diagonal elements.</p>
+<h3 id="Step-2-Child-2-Upper-Triangle-DP"><a href="#Step-2-Child-2-Upper-Triangle-DP" class="headerlink" title="Step 2: Child 2 - Upper Triangle DP"></a>Step 2: Child 2 - Upper Triangle DP</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">solve_child2</span>():</span><br><span class="line">    dp = [[-<span class="number">1</span>] * n <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">    dp[n-<span class="number">1</span>][n-<span class="number">1</span>] = <span class="number">0</span>  <span class="comment"># Base case</span></span><br></pre></td></tr></table></figure>
+
+<p>Key implementation details:</p>
+<ol>
+<li><strong>DP Table Initialization</strong>: Use <code>-1</code> to mark unreachable states</li>
+<li><strong>Base Case</strong>: <code>dp[n-1][n-1] = 0</code> (destination reached, fruits already counted by Child 1)</li>
+<li><strong>Iteration Order</strong>: Bottom-up (from row <code>n-2</code> to <code>0</code>)</li>
+<li><strong>Constraint Check</strong>: <code>j &lt; i</code> means invalid position (crossed diagonal)</li>
+<li><strong>Avoiding Double Count</strong>: <code>curr_fruit = 0 if (i == j)</code> ensures diagonal cells aren’t counted twice</li>
+</ol>
+<h3 id="Step-3-Child-3-Lower-Triangle-DP"><a href="#Step-3-Child-3-Lower-Triangle-DP" class="headerlink" title="Step 3: Child 3 - Lower Triangle DP"></a>Step 3: Child 3 - Lower Triangle DP</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">solve_child3</span>():</span><br><span class="line">    dp = [[-<span class="number">1</span>] * n <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">    dp[n-<span class="number">1</span>][n-<span class="number">1</span>] = <span class="number">0</span>  <span class="comment"># Base case</span></span><br></pre></td></tr></table></figure>
+
+<p>Symmetric logic to Child 2:</p>
+<ol>
+<li><strong>Iteration Order</strong>: Right-to-left (from column <code>n-2</code> to <code>0</code>)</li>
+<li><strong>Constraint Check</strong>: <code>i &lt; j</code> means invalid position (crossed diagonal)</li>
+<li><strong>Movement</strong>: Up-right, right, or down-right (column always increases by 1)</li>
+</ol>
+<h3 id="Step-4-Combine-Results"><a href="#Step-4-Combine-Results" class="headerlink" title="Step 4: Combine Results"></a>Step 4: Combine Results</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> child1_fruits + child2_fruits + child3_fruits</span><br></pre></td></tr></table></figure>
+
+<p>Since paths don’t overlap (diagonal cells handled separately), we simply add the three components.</p>
+<hr>
+<h2 id="Complexity-Analysis"><a href="#Complexity-Analysis" class="headerlink" title="Complexity Analysis"></a>Complexity Analysis</h2><h3 id="Time-Complexity-O-n²"><a href="#Time-Complexity-O-n²" class="headerlink" title="Time Complexity: O(n²)"></a>Time Complexity: <strong>O(n²)</strong></h3><ul>
+<li>Child 1 diagonal sum: O(n)</li>
+<li>Child 2 DP: O(n²) states, each with O(1) transitions</li>
+<li>Child 3 DP: O(n²) states, each with O(1) transitions</li>
+</ul>
+<p><strong>Total</strong>: O(n²)</p>
+<h3 id="Space-Complexity-O-n²"><a href="#Space-Complexity-O-n²" class="headerlink" title="Space Complexity: O(n²)"></a>Space Complexity: <strong>O(n²)</strong></h3><ul>
+<li>Child 2 DP table: O(n²)</li>
+<li>Child 3 DP table: O(n²)</li>
+</ul>
+<p><strong>Total</strong>: O(n²)</p>
+<hr>
+<h2 id="Why-This-Approach-Works"><a href="#Why-This-Approach-Works" class="headerlink" title="Why This Approach Works"></a>Why This Approach Works</h2><h3 id="The-Mathematical-Foundation"><a href="#The-Mathematical-Foundation" class="headerlink" title="The Mathematical Foundation"></a>The Mathematical Foundation</h3><p>The key insight is the <strong>path separation</strong> property:</p>
+<ol>
+<li><p><strong>Child 1 is deterministic</strong>: With <code>n-1</code> moves from <code>(0,0)</code> to <code>(n-1,n-1)</code>, and each move incrementing at least one coordinate, Child 1 must traverse the diagonal. Any deviation would require more or fewer steps.</p>
+</li>
+<li><p><strong>Child 2 stays in upper triangle</strong>: Starting at <code>(0, n-1)</code> with column <code>n-1 &gt; 0 = row</code>, and each move increasing the row by exactly 1, Child 2’s column index is always ≥ row index until reaching the destination.</p>
+</li>
+<li><p><strong>Child 3 stays in lower triangle</strong>: By symmetry, Child 3’s row index is always ≥ column index.</p>
+</li>
+</ol>
+<h3 id="Handling-Overlaps"><a href="#Handling-Overlaps" class="headerlink" title="Handling Overlaps"></a>Handling Overlaps</h3><p>The only possible overlap is on the <strong>diagonal</strong> (where <code>i == j</code>). Since Child 1 always collects diagonal fruits, we set <code>curr_fruit = 0</code> for diagonal positions in Child 2 and Child 3’s DP to avoid double counting.</p>
+<hr>
+<h2 id="Test-Cases-Walkthrough"><a href="#Test-Cases-Walkthrough" class="headerlink" title="Test Cases Walkthrough"></a>Test Cases Walkthrough</h2><h3 id="Example-fruits-1-2-3-4-5-6-8-7-9-10-11-12-13-14-15-16"><a href="#Example-fruits-1-2-3-4-5-6-8-7-9-10-11-12-13-14-15-16" class="headerlink" title="Example: fruits &#x3D; [[1,2,3,4],[5,6,8,7],[9,10,11,12],[13,14,15,16]]"></a>Example: fruits &#x3D; [[1,2,3,4],[5,6,8,7],[9,10,11,12],[13,14,15,16]]</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Grid visualization (n=4):</span><br><span class="line">     0   1   2   3</span><br><span class="line">0  [ 1,  2,  3,  4]  ← Child 2 starts at (0,3)</span><br><span class="line">1  [ 5,  6,  8,  7]</span><br><span class="line">2  [ 9, 10, 11, 12]</span><br><span class="line">3  [13, 14, 15, 16]  ← Child 3 starts at (3,0)</span><br><span class="line">   ↑                     ↘</span><br><span class="line">Child 1              Destination (3,3)</span><br><span class="line">starts (0,0)</span><br><span class="line"></span><br><span class="line">Step 1: Child 1 (diagonal)</span><br><span class="line">Path: (0,0) → (1,1) → (2,2) → (3,3)</span><br><span class="line">Fruits: 1 + 6 + 11 + 16 = 34</span><br><span class="line"></span><br><span class="line">Step 2: Child 2 (upper triangle)</span><br><span class="line">DP fills from bottom-up:</span><br><span class="line">- Row 2: dp[2][3] = 12, dp[2][2] = 0 (diagonal)</span><br><span class="line">- Row 1: dp[1][3] = max(12, 12) + 7 = 19</span><br><span class="line">         dp[1][2] = max(0, 12, 19) + 8 = 27</span><br><span class="line">- Row 0: dp[0][3] = max(27, 19, ?) + 4 = 31</span><br><span class="line">Optimal path: (0,3) → (1,2) → (2,3) → (3,3)</span><br><span class="line">Fruits: 4 + 8 + 12 + 0 = 24</span><br><span class="line"></span><br><span class="line">Step 3: Child 3 (lower triangle)</span><br><span class="line">DP fills from right-to-left:</span><br><span class="line">- Col 2: dp[3][2] = 15, dp[2][2] = 0 (diagonal)</span><br><span class="line">- Col 1: dp[3][1] = max(0, 15, ?) + 14 = 29</span><br><span class="line">- Col 0: dp[3][0] = max(?, 29, ?) + 13 = 42</span><br><span class="line">Optimal path: (3,0) → (3,1) → (3,2) → (3,3)</span><br><span class="line">Fruits: 13 + 14 + 15 + 0 = 42</span><br><span class="line"></span><br><span class="line">Total: 34 + 24 + 42 = 100 ✓</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Comparison-with-Alternative-Approaches"><a href="#Comparison-with-Alternative-Approaches" class="headerlink" title="Comparison with Alternative Approaches"></a>Comparison with Alternative Approaches</h2><h3 id="Approach-1-Full-6D-4D-DP"><a href="#Approach-1-Full-6D-4D-DP" class="headerlink" title="Approach 1: Full 6D&#x2F;4D DP"></a>Approach 1: Full 6D&#x2F;4D DP</h3><p><strong>Idea</strong>: Track all three children’s positions simultaneously</p>
+<p><strong>Drawback</strong>:</p>
+<ul>
+<li>Time: O(n^6) or O(n^4) with optimization</li>
+<li>Space: O(n^6) or O(n^4)</li>
+<li>Extremely complex implementation</li>
+</ul>
+<h3 id="Approach-2-Pure-Memoization-No-Path-Separation"><a href="#Approach-2-Pure-Memoization-No-Path-Separation" class="headerlink" title="Approach 2: Pure Memoization (No Path Separation)"></a>Approach 2: Pure Memoization (No Path Separation)</h3><p><strong>Idea</strong>: Use recursive memoization without recognizing path separation</p>
+<p><strong>Drawback</strong>:</p>
+<ul>
+<li>Still O(n^4) complexity</li>
+<li>Higher constant factor due to recursion overhead</li>
+<li>Less elegant code</li>
+</ul>
+<h3 id="Why-My-Approach-is-Better"><a href="#Why-My-Approach-is-Better" class="headerlink" title="Why My Approach is Better"></a>Why My Approach is Better</h3><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>My Solution</th>
+<th>6D DP</th>
+<th>Pure Memo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Time</strong></td>
+<td>O(n²)</td>
+<td>O(n^6)</td>
+<td>O(n^4)</td>
+</tr>
+<tr>
+<td><strong>Space</strong></td>
+<td>O(n²)</td>
+<td>O(n^6)</td>
+<td>O(n^4)</td>
+</tr>
+<tr>
+<td><strong>Key Insight</strong></td>
+<td>Path separation</td>
+<td>None</td>
+<td>Partial</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Key-Takeaways"><a href="#Key-Takeaways" class="headerlink" title="Key Takeaways"></a>Key Takeaways</h2><h3 id="Algorithm-Design-Insights"><a href="#Algorithm-Design-Insights" class="headerlink" title="Algorithm Design Insights"></a>Algorithm Design Insights</h3><ol>
+<li><p><strong>Identify non-overlapping subproblems</strong>: The three paths naturally separate due to movement constraints, allowing independent optimization.</p>
+</li>
+<li><p><strong>Leverage constraints to simplify</strong>: Recognizing that Child 1 must follow the diagonal reduces the problem from 3-path to 2-path optimization.</p>
+</li>
+<li><p><strong>Handle edge cases carefully</strong>: Diagonal cells need special treatment to avoid double counting.</p>
+</li>
+</ol>
+<h3 id="Problem-Solving-Strategy"><a href="#Problem-Solving-Strategy" class="headerlink" title="Problem-Solving Strategy"></a>Problem-Solving Strategy</h3><ol>
+<li><p><strong>Analyze movement constraints</strong>: Understanding each child’s valid region is crucial.</p>
+</li>
+<li><p><strong>Visualize the problem</strong>: Drawing the grid and marking valid regions for each child reveals the separation property.</p>
+</li>
+<li><p><strong>Decompose when possible</strong>: Breaking one 3-path problem into one deterministic path + two independent DP problems dramatically simplifies the solution.</p>
+</li>
+</ol>
+<hr>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>This approach demonstrates that careful constraint analysis can transform a seemingly complex multi-agent optimization problem into elegant, tractable subproblems.</p>
+<p>The beauty of this solution lies in recognizing:</p>
+<ol>
+<li><strong>Child 1’s path is deterministic</strong> (must follow diagonal)</li>
+<li><strong>Child 2 and Child 3’s regions are separated</strong> (upper vs. lower triangle)</li>
+<li><strong>Diagonal overlap is the only edge case</strong> (handled by zeroing out)</li>
+</ol>
+<p>By decomposing the problem this way, we achieve <strong>O(n²) time and space</strong> complexity instead of the naive O(n^6) approach—a dramatic improvement that makes the solution practical for large inputs.</p>
+<hr>
+<p><em>Tutorial texts partly co-generated by Claude Opus 4.5.</em></p>
+<p>Hope this detailed walkthrough helps you understand my efficient approach to this problem! Feel free to discuss any questions in the comments.</p>
+<p><em>Happy Coding! 🚀</em></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LeetCode/">LeetCode</a></div><div class="post-share"><div class="social-share" data-image="/img/leetcode.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/12/24/2025/" title="2025 Annual -- 我在未来等你"><img class="cover" src="/img/pr2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">2025 Annual -- 我在未来等你</div></div><div class="info-2"><div class="info-item-1">你看，这就是为什么我们一次次奔赴，任何事物都有属于它的光亮.</div></div></div></a><a class="pagination-related" href="/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/" title="Leetcode 3350 - Track Adjacent Increasing Subarrays"><img class="cover" src="/img/leetcode.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Leetcode 3350 - Track Adjacent Increasing Subarrays</div></div><div class="info-2"><div class="info-item-1">A one-pass greedy O(n) time O(1) space solution for LeetCode 3350: Maximum Length of Adjacent Increasing Subarrays.</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/" title="LeetCode 2749 - Minimum Operations to Make Integer Zero"><img class="cover" src="/img/leetcode.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-05</div><div class="info-item-2">LeetCode 2749 - Minimum Operations to Make Integer Zero</div></div><div class="info-2"><div class="info-item-1">An O(n) greedy one-pass solution for LeetCode 2749: Minimum Operations to Make Integer Zero.</div></div></div></a><a class="pagination-related" href="/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/" title="Leetcode 3350 - Track Adjacent Increasing Subarrays"><img class="cover" src="/img/leetcode.png" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-15</div><div class="info-item-2">Leetcode 3350 - Track Adjacent Increasing Subarrays</div></div><div class="info-2"><div class="info-item-1">A one-pass greedy O(n) time O(1) space solution for LeetCode 3350: Maximum Length of Adjacent Increasing Subarrays.</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comments</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">Miralem Zhang</div><div class="author-info-description">Cantonese<br>27' UG in Zhejiang University (ZJU)<br>Majoring in Biopharma (CKC Honors)<br>Minoring in AI and DS&BDT</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://www.instagram.com/mlmzzzooo" target="_blank" title="Instagram"><i class="fab fa-instagram" style="color: #e6162d;"></i></a><a class="social-icon" href="https://github.com/mlmzzzooo" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:mirelemzhang@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://twitter.com/ZhangMiralem" target="_blank" title="Twitter"><i class="fab fa-twitter" style="color: #00acee;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">New Solution of Leetcode Problem Out Now!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Problem-Description"><span class="toc-number">1.</span> <span class="toc-text">Problem Description</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Examples"><span class="toc-number">1.1.</span> <span class="toc-text">Examples</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Intuition"><span class="toc-number">2.</span> <span class="toc-text">Intuition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Approach"><span class="toc-number">3.</span> <span class="toc-text">Approach</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#State-Definition"><span class="toc-number">3.1.</span> <span class="toc-text">State Definition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Movement-Rules"><span class="toc-number">3.2.</span> <span class="toc-text">Movement Rules</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-Transition"><span class="toc-number">3.3.</span> <span class="toc-text">State Transition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Base-Case"><span class="toc-number">3.4.</span> <span class="toc-text">Base Case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Memoization-Optimization"><span class="toc-number">3.5.</span> <span class="toc-text">Memoization Optimization</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Insight-Path-Decomposition"><span class="toc-number">4.</span> <span class="toc-text">Key Insight: Path Decomposition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#My-Solution"><span class="toc-number">5.</span> <span class="toc-text">My Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-Implementation"><span class="toc-number">5.1.</span> <span class="toc-text">Python Implementation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithm-Breakdown"><span class="toc-number">6.</span> <span class="toc-text">Algorithm Breakdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-1-Child-1-Diagonal-Collection"><span class="toc-number">6.1.</span> <span class="toc-text">Step 1: Child 1 - Diagonal Collection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-2-Child-2-Upper-Triangle-DP"><span class="toc-number">6.2.</span> <span class="toc-text">Step 2: Child 2 - Upper Triangle DP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-3-Child-3-Lower-Triangle-DP"><span class="toc-number">6.3.</span> <span class="toc-text">Step 3: Child 3 - Lower Triangle DP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4-Combine-Results"><span class="toc-number">6.4.</span> <span class="toc-text">Step 4: Combine Results</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Complexity-Analysis"><span class="toc-number">7.</span> <span class="toc-text">Complexity Analysis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Complexity-O-n%C2%B2"><span class="toc-number">7.1.</span> <span class="toc-text">Time Complexity: O(n²)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Space-Complexity-O-n%C2%B2"><span class="toc-number">7.2.</span> <span class="toc-text">Space Complexity: O(n²)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-This-Approach-Works"><span class="toc-number">8.</span> <span class="toc-text">Why This Approach Works</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Mathematical-Foundation"><span class="toc-number">8.1.</span> <span class="toc-text">The Mathematical Foundation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Handling-Overlaps"><span class="toc-number">8.2.</span> <span class="toc-text">Handling Overlaps</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Test-Cases-Walkthrough"><span class="toc-number">9.</span> <span class="toc-text">Test Cases Walkthrough</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-fruits-1-2-3-4-5-6-8-7-9-10-11-12-13-14-15-16"><span class="toc-number">9.1.</span> <span class="toc-text">Example: fruits &#x3D; [[1,2,3,4],[5,6,8,7],[9,10,11,12],[13,14,15,16]]</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparison-with-Alternative-Approaches"><span class="toc-number">10.</span> <span class="toc-text">Comparison with Alternative Approaches</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-1-Full-6D-4D-DP"><span class="toc-number">10.1.</span> <span class="toc-text">Approach 1: Full 6D&#x2F;4D DP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Approach-2-Pure-Memoization-No-Path-Separation"><span class="toc-number">10.2.</span> <span class="toc-text">Approach 2: Pure Memoization (No Path Separation)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-My-Approach-is-Better"><span class="toc-number">10.3.</span> <span class="toc-text">Why My Approach is Better</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Takeaways"><span class="toc-number">11.</span> <span class="toc-text">Key Takeaways</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Algorithm-Design-Insights"><span class="toc-number">11.1.</span> <span class="toc-text">Algorithm Design Insights</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-Solving-Strategy"><span class="toc-number">11.2.</span> <span class="toc-text">Problem-Solving Strategy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Conclusion"><span class="toc-number">12.</span> <span class="toc-text">Conclusion</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/12/24/2025/" title="2025 Annual -- 我在未来等你"><img src="/img/pr2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2025 Annual -- 我在未来等你"/ loading='lazy'></a><div class="content"><a class="title" href="/2025/12/24/2025/" title="2025 Annual -- 我在未来等你">2025 Annual -- 我在未来等你</a><time datetime="2025-12-23T17:10:45.000Z" title="Created 2025-12-24 01:10:45">2025-12-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/11/07/LeetCode-3363-Find-Maximum-Number-of-Fruits-Collected/" title="LeetCode 3363 - Find the Maximum Number of Fruits Collected"><img src="/img/leetcode.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LeetCode 3363 - Find the Maximum Number of Fruits Collected"/ loading='lazy'></a><div class="content"><a class="title" href="/2025/11/07/LeetCode-3363-Find-Maximum-Number-of-Fruits-Collected/" title="LeetCode 3363 - Find the Maximum Number of Fruits Collected">LeetCode 3363 - Find the Maximum Number of Fruits Collected</a><time datetime="2025-11-07T13:20:05.000Z" title="Created 2025-11-07 21:20:05">2025-11-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/" title="Leetcode 3350 - Track Adjacent Increasing Subarrays"><img src="/img/leetcode.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode 3350 - Track Adjacent Increasing Subarrays"/ loading='lazy'></a><div class="content"><a class="title" href="/2025/10/15/LeetCode-3350-One-Pass-Adjacent-Increasing-Subarrays/" title="Leetcode 3350 - Track Adjacent Increasing Subarrays">Leetcode 3350 - Track Adjacent Increasing Subarrays</a><time datetime="2025-10-14T16:00:00.000Z" title="Created 2025-10-15 00:00:00">2025-10-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/" title="LeetCode 2749 - Minimum Operations to Make Integer Zero"><img src="/img/leetcode.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LeetCode 2749 - Minimum Operations to Make Integer Zero"/ loading='lazy'></a><div class="content"><a class="title" href="/2025/09/05/LeetCode-2749-Solution-Minimum-Operations-to-Make-Integer-Zero/" title="LeetCode 2749 - Minimum Operations to Make Integer Zero">LeetCode 2749 - Minimum Operations to Make Integer Zero</a><time datetime="2025-09-05T09:42:09.000Z" title="Created 2025-09-05 17:42:09">2025-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/09/05/My-First-Blog-Post/" title="The Path of Revelation (啟示路) -- Walk a life, on water and Bewater"><img src="/img/pr1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="The Path of Revelation (啟示路) -- Walk a life, on water and Bewater"/ loading='lazy'></a><div class="content"><a class="title" href="/2025/09/05/My-First-Blog-Post/" title="The Path of Revelation (啟示路) -- Walk a life, on water and Bewater">The Path of Revelation (啟示路) -- Walk a life, on water and Bewater</a><time datetime="2025-09-05T09:10:45.000Z" title="Created 2025-09-05 17:10:45">2025-09-05</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll to Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'miralemzhang/miralemzhang.github.io',
+      'data-repo-id': 'R_kgDOPqU-uA',
+      'data-category-id': 'DIC_kwDOPqU-uM4CvAAx',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script defer src="/js/shooting-stars.js"></script><script defer src="/js/background-music.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="90" alpha="0.6" zIndex="-2" mobile="false" data-click="false"></script><script id="canvas_nest" defer="defer" color="87,166,255" opacity="0.4" zIndex="-1" count="88" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章..." type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><audio id="bgm" src="/music/background.mp3" preload="auto" loop hidden></audio></body></html>
