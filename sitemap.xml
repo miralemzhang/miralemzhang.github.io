@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://miralemzhang.github.io/2025/12/24/2025/</loc>
+    <loc>https://miralemzhang.github.io/2025/12/24/Annual25/</loc>
     
     <lastmod>2025-12-31</lastmod>
     
@@ -72,14 +72,14 @@
   </url>
   
   <url>
-    <loc>https://miralemzhang.github.io/tags/Annual-Review/</loc>
+    <loc>https://miralemzhang.github.io/tags/Book-Music-Review/</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://miralemzhang.github.io/tags/Book-Music-Review/</loc>
+    <loc>https://miralemzhang.github.io/tags/Annual-Review/</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
