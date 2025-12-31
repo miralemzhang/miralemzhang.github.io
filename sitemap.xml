@@ -65,6 +65,13 @@
 
   
   <url>
+    <loc>https://miralemzhang.github.io/tags/Annual-Review/</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://miralemzhang.github.io/tags/LeetCode/</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
@@ -78,24 +85,17 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://miralemzhang.github.io/tags/Annual-Review/</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
   
   <url>
-    <loc>https://miralemzhang.github.io/categories/Coding/</loc>
+    <loc>https://miralemzhang.github.io/categories/Thoughts/</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://miralemzhang.github.io/categories/Thoughts/</loc>
+    <loc>https://miralemzhang.github.io/categories/Coding/</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
